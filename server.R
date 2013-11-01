@@ -29,7 +29,7 @@ rneedle = function(n)
 plotneedle = function(df)
 {
   p = ggplot(df, aes(x=xstart, y=ystart, xend=`xend`, yend=`yend`)) +
-         geom_segment(color=as.factor(df$cross), size=I(1)) +
+         geom_segment(size=I(1)) +
          geom_hline(yintercept=c(0,1))
   return(p)
 }
