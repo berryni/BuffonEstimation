@@ -3,7 +3,6 @@ library(ggplot2)
 
 getLine = function(df)
 {
-  cat("getLine")
   df$slope = sin(df$theta)/cos(df$theta)
   df$int = df$y-df$slope*df$x
   return(df)
