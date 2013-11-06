@@ -1,6 +1,7 @@
 library(shiny)
 library(ggplot2)
 
+### Helper functions to run the simulation from outside the shinyServer function
 getLine = function(df)
 {
   df$slope = sin(df$theta)/cos(df$theta)
@@ -39,23 +40,22 @@ buffon = function(df)
 }
 
 df = rneedle(1000)
-# Define server logic required to plot various variables against mpg
+
+### Start of Shiny code
 shinyServer(function(input, output) {
- 
-  titleText <- reactive({
+  
+  titleText <- reactive({      #Give the application a dynamic title
     cat("titletext")
     paste("Buffon Estimate with", input$count, "needles")
   })
+  
   estimateText = reactive({
     paste("The Buffon estimate of pi for",input$count,"needles is: ", buffon(df))
   })
-#  updatedf = reactive({
-#    df <<- rneedle(input$count)
-#  })
   
   output$caption = renderText({titleText()})
   
-  output$buffPlot = renderPlot({
+  output$buffPlot = renderPlot({     # Plot the simulation results with ggplot
     df <<- rneedle(input$count)
     print(plotneedle(df))
   })
