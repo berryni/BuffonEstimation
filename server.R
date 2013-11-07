@@ -2,12 +2,6 @@ library(shiny)
 library(ggplot2)
 
 ### Helper functions to run the simulation from outside the shinyServer function
-getLine = function(df)
-{
-  df$slope = sin(df$theta)/cos(df$theta)
-  df$int = df$y-df$slope*df$x
-  return(df)
-}
 getEndPoints = function(df)
 {
   df$xstart = df$x + .5*cos(df$theta)
@@ -21,7 +15,6 @@ rneedle = function(n)
   df = data.frame(runif(n,0,5),runif(n,0,1), runif(n,-pi,pi))
   colnames(df) = c("x","y","theta")
   cross = NA
-  df=getLine(df)
   df=getEndPoints(df)
   cross = (df$ystart > 1 | df$ystart < 0 | df$yend > 1 | df$yend < 0)
   df = cbind(df,cross)
